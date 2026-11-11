@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: paim-prospect-api
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app --bind 0.0.0.0:$PORT --timeout 300 --workers 1 --threads 4
+    healthCheckPath: /api/health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.11
+      - key: CORS_ORIGINS
+        value: https://paimlab-coder.github.io
